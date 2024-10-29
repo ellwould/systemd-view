@@ -11,6 +11,6 @@ A list of all active, inactive services and if they start on boot:
 
 ![image](https://github.com/Ellwould/systemd-view/blob/main/Systemd_View_Services.jpg)
 
-A Filter using JavaScript to find a specific service:
+A filter using JavaScript to find a specific service:
 
 ![image](https://github.com/Ellwould/systemd-view/blob/main/Systemd_View_Filter.jpg)
