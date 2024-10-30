@@ -14,5 +14,3 @@ A list of all active, inactive services and if they start on boot:
 A filter using JavaScript to find a specific service:
 
 ![image](https://github.com/Ellwould/systemd-view/blob/main/Systemd_View_Filter.jpg)
-
-### Nginx example configuration files are available but are in the process of being reviewed for errors.
