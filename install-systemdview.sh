@@ -30,7 +30,7 @@ fi;
 
 # Copy unit file and reload systemd deamon
 
-cp /root/systemd-view/systemd/systemd-view.service /usr/lib/systemd/system/;
+cp /root/systemd-view/systemd/systemdview.service /usr/lib/systemd/system/;
 systemctl daemon-reload;
 
 #----------------------------------------------------------------------
@@ -51,15 +51,15 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.4.linux-amd64.tar.gz;
 
 # Create directores used for Systemd View
 
-mkdir -p /etc/systemd-view/html-css;
+mkdir -p /etc/systemdview/html-css;
 
 # Copy HTML/CSS start and end files
 
-cp /root/systemd-view/html-css/* /etc/systemd-view/html-css/;
+cp /root/systemd-view/html-css/* /etc/systemdview/html-css/;
 
 # Copy Systemd View configuration file
 
-cp /root/systemd-view/env/systemd-view.env /etc/systemd-view/systemd-view.env
+cp /root/systemd-view/env/systemdview.env /etc/systemdview/systemdview.env
 
 # Create Go directories in root home directory for compiling the source code
 
@@ -82,26 +82,26 @@ cd /root/go/src/systemdview;
 go build systemdview.go;
 cd /root;
 
-# Create system user named systemd-view with no shell, no home directory and lock the account
+# Create system user named systemdview with no shell, no home directory and lock the account
 
-useradd -r -s /bin/false systemd-view;
-usermod -L systemd-view;
+useradd -r -s /bin/false systemdview;
+usermod -L systemdview;
 
 # Change executables file permissions, owner, group and move executables
 
-chown root:systemd-view /root/go/src/systemdview/systemdview;
+chown root:systemdview /root/go/src/systemdview/systemdview;
 chmod 050 /root/go/src/systemdview/systemdview;
 mv /root/go/src/systemdview/systemdview /usr/bin/systemdview;
 
 # Change resource file permissions, owner and group
 
-chown -R root:systemd-view /etc/systemd-view;
-chmod 050 /etc/systemd-view;
-chmod 040 /etc/systemd-view/systemd-view.env;
-chmod 050 /etc/systemd-view/html-css;
-chmod 040 /etc/systemd-view/html-css/*;
+chown -R root:systemdview /etc/systemdview;
+chmod 050 /etc/systemdview;
+chmod 040 /etc/systemdview/systemdview.env;
+chmod 050 /etc/systemdview/html-css;
+chmod 040 /etc/systemdview/html-css/*;
 
 # Srart Systemd View programs and enable on boot
 
-systemctl start systemd-view;
-systemctl enable systemd-view;
+systemctl start systemdview;
+systemctl enable systemdview;
