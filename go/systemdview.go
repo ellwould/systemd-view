@@ -39,16 +39,16 @@ import (
 )
 
 // Constant for systemd-view.env absolute path
-const systemdViewEnv string = "/etc/systemd-view/systemd-view.env"
+const systemdViewEnv string = "/etc/systemdview/systemdview.env"
 
 // Constant for directory path that contains the files systemd-view-start.html and systemd-view-end.html
-const dirHTML string = "/etc/systemd-view/html-css"
+const dirHTML string = "/etc/systemdview/html-css"
 
 // Constant for fileStartHTML file
-const fileStartHTML string = "systemd-view-start.html"
+const fileStartHTML string = "systemdview-start.html"
 
 // Constant for fileEndHTML file
-const fileEndHTML string = "systemd-view-end.html"
+const fileEndHTML string = "systemdview-end.html"
 
 // Constant for American National Standards Institute (ANSI) reset colour code
 const resetColour string = "\033[0m"
@@ -91,7 +91,7 @@ func systemd() {
 
 	err := godotenv.Load(systemdViewEnv)
 	if err != nil {
-		panic("Error loading systemd-view.env file")
+		panic("Error loading systemdview.env file")
 	}
 
 	envAddress := os.Getenv("address")
