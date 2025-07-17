@@ -29,7 +29,6 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"systemdviewresource"
 	"runtime"
 	"strings"
 	"os"
