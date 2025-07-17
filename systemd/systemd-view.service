@@ -1,0 +1,11 @@
+[Unit]
+Description=Systemd View
+
+[Service]
+User=systemd-view
+Group=systemd-view
+Type=simple
+ExecStart=/usr/bin/systemd-view
+
+[Install]
+WantedBy=multi-user.target
