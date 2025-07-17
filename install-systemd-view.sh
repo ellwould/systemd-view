@@ -67,7 +67,7 @@ mkdir -p /root/go/{bin,pkg,src/systemdview};
 
 # Copy Systemd View source code
 
-cp /root/systemdview/go/systemdview.go /root/go/src/systemdview/systemdview.go;
+cp /root/systemd-view/go/systemdview.go /root/go/src/systemdview/systemdview.go;
 
 # Create Go mod for Systemd View
 
