@@ -32,14 +32,80 @@ import (
 	"systemdviewresource"
 	"runtime"
 	"strings"
+	"os"
 )
 
-func systemd() {
-	var startHTML string
-	startHTML = systemdviewresource.StartHTML()
+// Constant for systemd-view.env absolute path
+const systemdViewEnv string = "/etc/systemd-view/systemd-view.env"
 
-	var endHTML string
-	endHTML = systemdviewresource.EndHTML()
+// Constant for directory path that contains the files systemd-view-start.html and systemd-view-end.html
+const dirHTML string = "/etc/systemd-view/html-css"
+
+// Constant for fileStartHTML file
+const fileStartHTML string = "systemd-view-start.html"
+
+// Constant for fileEndHTML file
+const fileEndHTML string = "systemd-view-end.html"
+
+// Constant for American National Standards Institute (ANSI) reset colour code
+const resetColour string = "\033[0m"
+
+// Constant for American National Standards Institute (ANSI) text colour codes
+const textBoldWhite string = "\033[1;37m"
+
+// Constant for American National Standards Institute (ANSI) background colour codes
+const bgRed string = "\033[41m"
+
+// Clear screen function for GNU/Linux OS's
+func clearScreen() {
+	fmt.Print("\033[H\033[2J")
+}
+
+// Function to draw box with squares around message, must have a message with characters that total a odd number
+func messageBox(bgColour string, messageColour string, message string) {
+	topBottomSquare := strings.Repeat(" □", (len(message)/2)+6)
+	inbetweenSpace := strings.Repeat(" ", len(message)+8)
+	fmt.Println(bgColour + messageColour)
+	fmt.Println(topBottomSquare + " ")
+	fmt.Println(" □" + inbetweenSpace + "□ ")
+	fmt.Println(" □    " + message + "    □ ")
+	fmt.Println(" □" + inbetweenSpace + "□ ")
+	fmt.Println(topBottomSquare + " ")
+	fmt.Print(resetColour)
+}
+
+// Function to display message on CLI informing the user the configuration file has a wrong value
+func invalidEnv(message string) {
+	clearScreen()
+	messageBox(bgRed, textBoldWhite, message)
+	fmt.Println("")
+	os.Exit(0)
+}
+
+func systemd() {
+	startHTML = getFile(dirHTML, fileStartHTML)
+	endHTML = getFile(dirHTML, fileEndHTML)
+
+	err := godotenv.Load(systemdViewEnv)
+	if err != nil {
+		panic("Error loading systemd-view.env file")
+	}
+
+	envAddress := os.Getenv("address")
+	envPort := os.Getenv("port")
+
+	validateEnvAddress := validator.New()
+	validateEnvAddressErr := validateEnvAddress.Var(envAddress, "required,ip_addr")
+
+	if err != nil {
+		invalidEnv("Port must be a number in " + systemdViewEnv)
+	}
+
+	if envPortInt <= 0 || envPortInt >= 65536 {
+		invalidEnv("Port number in " + systemdViewEnv + " must be between 1 and 65535")
+	} else if validationEnvAddress != nil && envAddress != "localhost" {
+		invalidEnv("Address in " + systemdViewEnv + " must be a valid Internet Protocol (IP) address or localhost")
+	} else {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 
@@ -51,7 +117,7 @@ func systemd() {
 		fmt.Fprintf(w, "    <th><a href=\"https://ell.today\" class=\"tableButton externalButton\">Written By Elliot Keavney (Website)</a></th>")
 		fmt.Fprintf(w, "  </tr>")
 		fmt.Fprintf(w, "  <tr>")
-		fmt.Fprintf(w, "    <th><a href=\"https://github.com/Ellwould/systemd-view\" class=\"tableButton externalButton\">Systemd View Source Code (GitHub)</a></th>")
+		fmt.Fprintf(w, "    <th><a href=\"https://github.com/ellwould/systemd-view\" class=\"tableButton externalButton\">Systemd View Source Code (GitHub)</a></th>")
 		fmt.Fprintf(w, "  </tr>")
 		fmt.Fprintf(w, "</table>")
 		fmt.Fprintf(w, "<br>")
@@ -212,12 +278,11 @@ func systemd() {
 		fmt.Fprintf(w, endHTML)
 	})
 
-	// Different port numbers will be assigned to each Go program later
-	port := "localhost:8000"
-	fmt.Println("Systemd View is running on port " + port)
+	socket := envAddress + ":" + envPort
+	fmt.Println("Systemd View is running on " + socket)
 
 	// Start server on port specified above
-	log.Fatal(http.ListenAndServe(port, nil))
+	log.Fatal(http.ListenAndServe(socket, nil))
 }
 
 func main() {
@@ -228,3 +293,6 @@ func main() {
 		systemd()
 	}
 }
+
+// Contributor(s):
+// Elliot Michael Keavney
