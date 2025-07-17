@@ -18,12 +18,12 @@ cd /root;
 
 # Stop Systemd View automatically starting on boot
 
-systemctl stop systemd-view.service;
-systemctl disable systemd-view.service;
+systemctl stop systemdview.service;
+systemctl disable systemdview.service;
 
 # Remove Systemd View unit files and reload systemd deamon
 
-rm /usr/lib/systemd/system/systemd-view.service;
+rm /usr/lib/systemd/system/systemdview.service;
 systemctl daemon-reload;
 
 #----------------------------------------------------------------------
@@ -34,12 +34,12 @@ rm /usr/bin/systemdview;
 
 # Remove all other directores and files used by Systemd View
 
-rm -r /etc/systemd-view;
+rm -r /etc/systemdview;
 
 # Remove Systemd View source code in root home directory
 
 rm -r /root/go/src/systemdview;
 
-# Remove the user and group systemd-view from the system
+# Remove the user and group systemdview from the system
 
-userdel systemd-view;
+userdel systemdview;
