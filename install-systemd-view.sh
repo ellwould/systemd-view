@@ -76,7 +76,7 @@ cd /root/go/src/systemdview;
 go mod init root/go/src/systemdview;
 go mod tidy;
 
-# Compile systemd-view.go
+# Compile systemdview.go
 
 cd /root/go/src/systemdview;
 go build systemdview.go;
