@@ -30,7 +30,7 @@ systemctl daemon-reload;
 
 # Remove Systemd View binary
 
-rm /usr/bin/systemd-view;
+rm /usr/bin/systemdview;
 
 # Remove all other directores and files used by Systemd View
 
@@ -38,7 +38,7 @@ rm -r /etc/systemd-view;
 
 # Remove Systemd View source code in root home directory
 
-rm -r /root/go/src/systemd-view;
+rm -r /root/go/src/systemdview;
 
 # Remove the user and group systemd-view from the system
 
