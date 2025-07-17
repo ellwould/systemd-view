@@ -2,8 +2,8 @@
 Description=Systemd View
 
 [Service]
-User=systemd-view
-Group=systemd-view
+User=systemdview
+Group=systemdview
 Type=simple
 ExecStart=/usr/bin/systemdview
 
