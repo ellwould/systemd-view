@@ -63,23 +63,23 @@ cp /root/systemd-view/env/systemd-view.env /etc/systemd-view/systemd-view.env
 
 # Create Go directories in root home directory for compiling the source code
 
-mkdir -p /root/go/{bin,pkg,src/systemd-view};
+mkdir -p /root/go/{bin,pkg,src/systemdview};
 
 # Copy Systemd View source code
 
-cp /root/systemd-view/go/systemd-view.go /root/go/src/systemd-view/systemd-view.go;
+cp /root/systemdview/go/systemdview.go /root/go/src/systemdview/systemdview.go;
 
 # Create Go mod for Systemd View
 
 export PATH=$PATH:/usr/local/go/bin;
-cd /root/go/src/systemd-view;
-go mod init root/go/src/systemd-view;
+cd /root/go/src/systemdview;
+go mod init root/go/src/systemdview;
 go mod tidy;
 
 # Compile systemd-view.go
 
-cd /root/go/src/systemd-view;
-go build systemd-view.go;
+cd /root/go/src/systemdview;
+go build systemdview.go;
 cd /root;
 
 # Create system user named systemd-view with no shell, no home directory and lock the account
@@ -89,9 +89,9 @@ usermod -L systemd-view;
 
 # Change executables file permissions, owner, group and move executables
 
-chown root:systemd-view /root/go/src/systemd-view/systemd-view;
-chmod 050 /root/go/src/systemd-view/systemd-view;
-mv /root/go/src/systemd-view/systemd-view /usr/bin/systemd-view;
+chown root:systemd-view /root/go/src/systemdview/systemdview;
+chmod 050 /root/go/src/systemdview/systemdview;
+mv /root/go/src/systemdview/systemdview /usr/bin/systemdview;
 
 # Change resource file permissions, owner and group
 
