@@ -5,7 +5,7 @@ Description=Systemd View
 User=systemd-view
 Group=systemd-view
 Type=simple
-ExecStart=/usr/bin/systemd-view
+ExecStart=/usr/bin/systemdview
 
 [Install]
 WantedBy=multi-user.target
